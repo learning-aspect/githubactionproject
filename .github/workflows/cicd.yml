@@ -69,7 +69,7 @@ jobs:
           echo "Waiting for SonarQube..."
           until curl -s http://localhost:9000/api/system/status | grep -q '"status":"UP"'; do
           curl -s http://localhost:9000/api/system/status
-          sleep 5
+          sleep 30
           done
           echo "SonarQube is ready"
 
