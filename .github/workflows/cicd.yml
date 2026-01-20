@@ -66,12 +66,13 @@ jobs:
        run: |
           docker run -d --name sonarqube \
           -p 9000:9000 sonarqube:lts
-          
-          # wait until sonar is UP
+          echo "Waiting for SonarQube..."
           until curl -s http://localhost:9000/api/system/status | grep -q '"status":"UP"'; do
-            echo "Waiting for SonarQube..."
-            sleep 30
+          curl -s http://localhost:9000/api/system/status
+          sleep 5
           done
+          echo "SonarQube is ready"
+
 
      - name: Install Sonar Scanner
        run: |
