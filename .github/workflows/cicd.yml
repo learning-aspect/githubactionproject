@@ -66,6 +66,18 @@ jobs:
        run: |
           docker run -d --name sonarqube \
           -p 9000:9000 sonarqube:lts
+          
+     - name: Show Docker info
+       run: |
+        docker ps -a
+        docker logs --tail 200 sonarqube || true
+
+     - name: Check port conflicts and resources
+       run: |
+          sudo lsof -i :9000 || true
+          df -h
+          free -m
+
           echo "Waiting for SonarQube..."
           until curl -s http://localhost:9000/api/system/status | grep -q '"status":"UP"'; do
           curl -s http://localhost:9000/api/system/status
