@@ -55,3 +55,34 @@ jobs:
         cache: maven
     - name: Unit Test cases
       run: mvn test
+  
+  sonarqube:
+    runs-on: ubuntu-latest
+    steps:
+     - name: Checkout Code
+       uses: actions/checkout@v4
+     
+     - name: Start SonarQube in Docker
+       run: |
+          docker run -d --name sonarqube \
+          -p 9000:9000 sonarqube:lts
+          sleep 30
+     - name: Install Sonar Scanner
+       run: |
+        sudo apt-get update
+        sudo apt-get install -y unzip
+        wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
+        unzip sonar-scanner-cli-*.zip
+        sudo mv sonar-scanner-*/ /opt/sonar-scanner
+
+     - name: Run SonarQube Scan
+       env:
+        SONAR_HOST_URL: "http://localhost:9000"
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+       run: |
+          /opt/sonar-scanner/bin/sonar-scanner \
+          -Dsonar.projectKey=my-project \
+          -Dsonar.sources=. \
+          -Dsonar.host.url=$SONAR_HOST_URL \
+          -Dsonar.login=$SONAR_TOKEN
+          
