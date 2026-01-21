@@ -61,49 +61,14 @@ jobs:
      - name: Checkout Code
        uses: actions/checkout@v4
      
-     - name: Install Docker
-       run: |
-         choco install docker-cli -y
-         choco install docker-desktop -y
-     - name: Start Sonarqube Docker container
-       run: |
-          docker run -d --name sonarqube \
-          -p 9000:9000 sonarqube:latest
-          
-     - name: Wait for SonarQube to be ready 
-       run: | 
-         echo "Waiting for SonarQube..." 
-         timeout /t 60          
      - name: Verify SonarQube is running 
-      run: | 
+       run: | 
         curl http://localhost:9000
-     - name: Show Docker info
-       run: |
-        docker ps -a
-        docker logs --tail 200 sonarqube || true
-
-     - name: Check port conflicts and resources
-       run: |
-          sudo lsof -i :9000 || true
-          df -h
-          free -m
-
-          echo "Waiting for SonarQube..."
-          until curl -s http://localhost:9000/api/system/status | grep -q '"status":"UP"'; do
-          curl -s http://localhost:9000/api/system/status
-          sleep 30
-          done
-          echo "SonarQube is ready"
+        echo "SonarQube is ready"
 
 
      - name: Install Sonar Scanner
        run: |
-        sudo apt-get update
-        sudo apt-get install -y unzip
-        wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
-        unzip sonar-scanner-cli-*.zip
-        sudo mv sonar-scanner-*/ /opt/sonar-scanner
-
      - name: Run SonarQube Scan
        env:
         SONAR_HOST_URL: "http://localhost:9000"
