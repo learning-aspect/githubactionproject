@@ -67,8 +67,7 @@ jobs:
         Write-Output "SonarQube is ready"
      - name: Run SonarQube Scan 
        run: | 
-         C:\A-Parul\sonarqube\sonar-scanner\sonar-scanner-8.0.1.6346-windows-x64\bin\sonar-scanner
-         -Dsonar.projectKey=my_project
-         -Dsonar.sources=.
-         -Dsonar.host.url=http://localhost:9000
-         -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+         C:\A-Parul\sonarqube\sonar-scanner\sonar-scanner-8.0.1.6346-windows-x64\bin\sonar-scanner -Dsonar.projectKey=my_project `
+         -Dsonar.sources=. `
+         -Dsonar.host.url=http://localhost:9000 `
+         -Dsonar.login=sqa_67bbf2ca054ee0d07bb4f8a14d471cc62a5de1b7
