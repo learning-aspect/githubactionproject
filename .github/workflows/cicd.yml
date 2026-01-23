@@ -63,6 +63,6 @@ jobs:
      
      - name: Verify SonarQube is running 
        run: | 
-        curl http://localhost:9000
-        echo "SonarQube is ready"
+        curl.exe http://localhost:9000
+        Write-Output "SonarQube is ready"
           
