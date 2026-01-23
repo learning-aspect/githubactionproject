@@ -65,4 +65,3 @@ jobs:
        run: | 
         curl.exe http://localhost:9000
         Write-Output "SonarQube is ready"
-          
