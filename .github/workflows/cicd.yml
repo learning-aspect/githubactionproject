@@ -65,3 +65,10 @@ jobs:
        run: | 
         curl.exe http://localhost:9000
         Write-Output "SonarQube is ready"
+     - name: Run SonarQube Scan 
+       run: | 
+         sonar-scanner ^ 
+         -Dsonar.projectKey=my_project ^ 
+         -Dsonar.sources=. ^ 
+         -Dsonar.host.url=http://localhost:9000 
+         ^ -Dsonar.login=${{ secrets.SONAR_TOKEN }}
