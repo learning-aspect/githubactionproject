@@ -69,6 +69,6 @@ jobs:
        run: | 
          C:\A-Parul\sonarqube\sonar-scanner\sonar-scanner-8.0.1.6346-windows-x64\bin\sonar-scanner `
          -D"sonar.projectKey=my_project" `
-         -D"sonar.sources=src/main/java" `
+         -D"sonar.sources=src" `
          -D"sonar.host.url=http://localhost:9000" `
          -D"sonar.login=sqa_67bbf2ca054ee0d07bb4f8a14d471cc62a5de1b7"
